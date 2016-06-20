@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/usr/local/opt/plenv/versions/5.24.0/bin/perl
 
 use strict;
 use warnings FATAL => 'all';
@@ -9,7 +9,8 @@ use open qw(:std :utf8); # http://stackoverflow.com/a/519359
 no warnings 'utf8';
 
 # Set the output to always be UTF8
-binmode STDOUT,':encoding(UTF-8)';
+#binmode STDOUT,':encoding(UTF-8)';
+#binmode STDOUT,':utf8';
 
 my $remove_file_add_header    = 1;
 my $remove_file_delete_header = 1;
@@ -174,7 +175,9 @@ sub mark_empty_line {
 	my $reset_escape = "\e\[m";
 	my $invert_color = "\e\[7m";
 
-	$line =~ s/^($ansi_color_regex)[+-]$reset_color\s*$/$invert_color$1 $reset_escape\n/;
+	eval {
+		$line =~ s/^($ansi_color_regex)[+-]$reset_color\s*$/$invert_color$1 $reset_escape\n/;
+	};
 
 	return $line;
 }
